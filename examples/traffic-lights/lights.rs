@@ -139,6 +139,7 @@ impl LightsAgent {
                 }
                 LightsMessage::Display => self.display_ascii()
             }
+            self.display_ascii();
         }
     }
 
@@ -171,8 +172,6 @@ impl LightsAgent {
             text.push_str("|  |\n");
         }
 
-        text.push_str("   ");
-
         if self.traffic_light_state.amber {
             text.push_str("|🟡|");
         } else {
@@ -190,7 +189,15 @@ impl LightsAgent {
         text.push_str("----   ----\n");
 
         if self.traffic_light_state.green {
-            text.push_str("|🟢|");
+            text.push_str("|🟢|\n");
+        } else {
+            text.push_str("|⚫|\n");
+        }
+
+        text.push_str("----   ");
+
+        if self.cross_pending {
+            text.push_str("|🔴|");
         } else {
             text.push_str("|⚫|");
         }
