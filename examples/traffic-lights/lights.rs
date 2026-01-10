@@ -76,12 +76,10 @@ impl From<sequencer::PedestrianCrossingSequenceState> for PedestrianLights {
             },
             sequencer::PedestrianCrossingSequenceState::Stop
             | sequencer::PedestrianCrossingSequenceState::CrossEnding
-            | sequencer::PedestrianCrossingSequenceState::CrossPending => {
-                PedestrianLights {
-                    stop: true,
-                    cross: false,
-                }
-            }
+            | sequencer::PedestrianCrossingSequenceState::CrossPending => PedestrianLights {
+                stop: true,
+                cross: false,
+            },
         }
     }
 }
@@ -102,7 +100,7 @@ impl Agent for LightsAgent {
     async fn create(address: Self::Address, _config: Self::Config) -> Self {
         Self {
             _address: address,
-            traffic_light_state: TrafficLights{
+            traffic_light_state: TrafficLights {
                 ..Default::default()
             },
             pedestrian_light_state: PedestrianLights {
@@ -127,17 +125,16 @@ impl LightsAgent {
         if let Payloads::Lights(lights_message) = message {
             match lights_message {
                 LightsMessage::SetTrafficLightState(traffic_light_sequencer_state) => {
-                    self.traffic_light_state = 
-                        TrafficLights::from(traffic_light_sequencer_state)
-                },
+                    self.traffic_light_state = TrafficLights::from(traffic_light_sequencer_state)
+                }
                 LightsMessage::SetPedestrianLightState(pedestrian_crossing_sequencer_state) => {
                     self.pedestrian_light_state =
                         PedestrianLights::from(pedestrian_crossing_sequencer_state)
-                },
+                }
                 LightsMessage::SetButtonLightState(cross_pending) => {
                     self.cross_pending = cross_pending
                 }
-                LightsMessage::Display => self.display_ascii()
+                LightsMessage::Display => self.display_ascii(),
             }
             self.display_ascii();
         }

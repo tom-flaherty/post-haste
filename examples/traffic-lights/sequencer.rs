@@ -167,14 +167,14 @@ impl SequencerAgent {
             PedestrianCrossingSequenceState::CrossPending => postmaster::send(
                 Addresses::LightsAgent,
                 self.address,
-                Payloads::Lights(LightsMessage::SetButtonLightState(true))
+                Payloads::Lights(LightsMessage::SetButtonLightState(true)),
             )
             .await
             .unwrap(),
             _ => postmaster::send(
                 Addresses::LightsAgent,
                 self.address,
-                Payloads::Lights(LightsMessage::SetButtonLightState(false))
+                Payloads::Lights(LightsMessage::SetButtonLightState(false)),
             )
             .await
             .unwrap(),
@@ -186,7 +186,8 @@ impl SequencerAgent {
                 self.traffic_light_state.clone(),
             )),
         )
-        .await.unwrap();
+        .await
+        .unwrap();
 
         postmaster::send(
             Addresses::LightsAgent,
@@ -228,7 +229,7 @@ impl SequencerAgent {
             .with_delay(consts::AMBER_TO_RED_DELAY)
             .send()
             .await
-            .unwrap()
+            .unwrap(),
         }
     }
 
@@ -281,7 +282,7 @@ impl SequencerAgent {
             .with_delay(consts::CROSSING_END_DELAY)
             .send()
             .await
-            .unwrap()
+            .unwrap(),
         }
     }
 

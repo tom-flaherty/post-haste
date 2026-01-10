@@ -9,8 +9,8 @@ use crate::{
     sequencer::{SequencerAgent, SequencerMessage},
 };
 
-mod consts;
 mod button;
+mod consts;
 mod lights;
 mod sequencer;
 

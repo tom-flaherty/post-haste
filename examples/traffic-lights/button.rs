@@ -17,10 +17,7 @@ impl Agent for ButtonAgent {
         let stdin = io::stdin();
         let reader = BufReader::new(stdin).lines();
 
-        Self {
-            address,
-            reader,
-        }
+        Self { address, reader }
     }
 
     async fn run(mut self, _inbox: post_haste::agent::Inbox<Self::Message>) -> ! {
