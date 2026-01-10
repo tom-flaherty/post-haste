@@ -118,8 +118,6 @@ mod hardware {
 }
 
 pub(crate) struct LightsAgent {
-    _address: Addresses,
-
     traffic_light_state: hardware::TrafficLights,
     pedestrian_light_state: hardware::PedestrianLights,
     cross_pending: bool,
@@ -132,7 +130,6 @@ impl Agent for LightsAgent {
 
     async fn create(address: Self::Address, _config: Self::Config) -> Self {
         Self {
-            _address: address,
             traffic_light_state: TrafficLights::default(),
             pedestrian_light_state: PedestrianLights::default(),
             cross_pending: false,
